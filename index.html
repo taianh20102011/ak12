@@ -1,210 +1,468 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Khảo sát Hứng thú Nghề nghiệp</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f8fc;
-      padding: 20px;
-    }
-    .container {
-      max-width: 900px;
-      margin: auto;
-      background: #ffffff;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    h2 {
-      text-align: center;
-      color: #2c3e50;
-    }
-    label {
-      display: block;
-      margin: 15px 0 5px;
-      font-weight: bold;
-    }
-    input[type="text"], textarea, select {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background-color: #f9f9f9;
-      box-sizing: border-box;
-    }
-    select {
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background-image: url('data:image/svg+xml;utf8,<svg fill="%23666" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      background-size: 16px 16px;
-    }
-    textarea {
-      resize: vertical;
-      height: 80px;
-    }
-    button {
-      margin-top: 20px;
-      padding: 12px 20px;
-      background-color: #2980b9;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    button:hover {
-      background-color: #1c5980;
-    }
-    table {
-      margin-top: 30px;
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: left;
-      vertical-align: top;
-    }
-    th {
-      background-color: #ecf0f1;
-    }
-    #resultsSection {
-      display: none;
-      margin-top: 50px;
-    }
-    #devButton {
-      background-color: #27ae60;
-      margin-left: auto;
-      margin-top: 10px;
-    }
-    #devButton:hover {
-      background-color: #1e8449;
-    }
-    .dev-btn-wrapper {
-      text-align: right;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Khảo Sát Hứng Thú Nghề Nghiệp của tổ 5</title>
+    <style>
+        /* Reset */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6b8dd6, #2e4783);
+            color: #222;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        h2 {
+            color: #f0f0f0;
+            text-align: center;
+            font-weight: 400;
+            margin: 0 0 20px 0;
+        }
+        form {
+            background: #fff;
+            padding: 25px 30px 40px 30px;
+            border-radius: 12px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+        }
+        label {
+            display: block;
+            margin-top: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 12px;
+            margin-top: 8px;
+            border-radius: 6px;
+            border: 2px solid #ccc;
+            font-size: 1rem;
+            transition: 0.3s ease;
+            font-family: inherit;
+            resize: vertical;
+        }
+        input[type="text"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #4a90e2;
+            outline: none;
+            box-shadow: 0 0 6px #4a90e2a0;
+        }
+        select {
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%234a90e2" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 18px 18px;
+            padding-right: 40px;
+        }
+        textarea {
+            min-height: 80px;
+        }
+        button {
+            margin-top: 28px;
+            background: #4a90e2;
+            border: none;
+            color: white;
+            padding: 14px 0;
+            width: 100%;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #357ABD;
+        }
+        #message {
+            margin-top: 18px;
+            font-weight: 700;
+            color: green;
+            text-align: center;
+        }
+
+        /* Admin modal & button */
+        #adminBtn {
+            margin: 20px auto 0 auto;
+            display: block;
+            background: #222;
+            color: #eee;
+            border: none;
+            padding: 10px 15px;
+            font-size: 0.95rem;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #0009;
+            transition: background 0.3s ease;
+        }
+        #adminBtn:hover {
+            background: #444;
+        }
+        #adminModal {
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100 0;
+        }
+        #adminContent {
+            background: white;
+            max-width: 80vw;
+            max-height: 80vh;
+            overflow-y: auto;
+            border-radius: 10px;
+            padding: 20px 30px 30px 30px;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.6);
+            font-size: 0.9rem;
+            color: #222;
+        }
+        #adminClose {
+            float: right;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: #444;
+        }
+        #adminContent h3 {
+            margin-top: 0;
+        }
+        #loginSection {
+            max-width: 320px;
+            margin: 80px auto 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+        }
+        #loginSection input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 1rem;
+            margin-top: 15px;
+            border-radius: 8px;
+            border: 2px solid #ccc;
+            font-family: inherit;
+        }
+        #loginSection button {
+            margin-top: 20px;
+            background: #2b6cb0;
+            width: 100%;
+            border: none;
+            padding: 14px 0;
+            font-size: 1rem;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        #loginSection button:hover {
+            background: #224975;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px 8px;
+            text-align: left;
+        }
+        table th {
+            background: #4a90e2;
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+        @media screen and (max-width: 520px) {
+            form {
+                padding: 20px 20px 30px 20px;
+            }
+            #adminContent {
+                max-width: 95vw;
+                max-height: 90vh;
+                padding: 15px 20px 25px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <main>
+        <h1>Khảo Sát Hứng Thú Nghề Nghiệp</h1>
+        <h2>Hãy điền thông tin và câu trả lời bên dưới</h2>
+        <form id="surveyForm" autocomplete="off">
+            <label for="fullname">Họ và tên<span style="color:red;"> *</span></label>
+            <input id="fullname" name="fullname" type="text" placeholder="Nhập họ và tên" required maxlength="100" />
 
-  <div class="container">
-    <h2>Khảo sát Hứng thú Nghề nghiệp</h2>
-    <form id="surveyForm">
-      <label for="name">Họ và tên:</label>
-      <input type="text" id="name" required>
+            <label for="classSelect">Lớp<span style="color:red;"> *</span></label>
+            <select id="classSelect" name="classSelect" required>
+                <option value="" disabled selected>-- Chọn lớp --</option>
+                <option value="8/1">8/1</option>
+                <option value="8/2">8/2</option>
+                <option value="8/3">8/3</option>
+                <option value="8/4">8/4</option>
+                <option value="8/5">8/5</option>
+                <option value="8/6">8/6</option>
+                <option value="8/7">8/7</option>
+                <option value="8/8">8/8</option>
+                <option value="8/9">8/9</option>
+                <option value="8/10">8/10</option>
+                <option value="8/11">8/11</option>
+            </select>
 
-      <label for="class">Lớp:</label>
-      <select id="class" required>
-        <option value="">-- Chọn lớp --</option>
-        <option value="8/1">8/1</option>
-        <option value="8/2">8/2</option>
-        <option value="8/3">8/3</option>
-        <option value="8/4">8/4</option>
-        <option value="8/5">8/5</option>
-        <option value="8/6">8/6</option>
-        <option value="8/7">8/7</option>
-        <option value="8/8">8/8</option>
-        <option value="8/9">8/9</option>
-        <option value="8/10">8/10</option>
-        <option value="8/11">8/11</option>
-      </select>
+            <label for="interestCareer">Bạn có hứng thú với nghề nghiệp nào? Vì sao?<span style="color:red;"> *</span></label>
+            <textarea id="interestCareer" name="interestCareer" required placeholder="Trả lời câu hỏi..." maxlength="1000"></textarea>
 
-      <label for="interest">Bạn có hứng thú với nghề nghiệp nào? Vì sao?</label>
-      <textarea id="interest" required></textarea>
+            <label for="actionsToShowInterest">Bạn đã làm những gì để thể hiện hứng thú với nghề nghiệp bạn yêu thích?<span style="color:red;"> *</span></label>
+            <textarea id="actionsToShowInterest" name="actionsToShowInterest" required placeholder=" Trả lời câu hỏi..." maxlength="1000"></textarea>
 
-      <label for="actions">Bạn đã làm những gì để thể hiện hứng thú với nghề nghiệp bạn yêu thích?</label>
-      <textarea id="actions" required></textarea>
+            <label for="favSubject">Trong các môn học bạn thích nhất hay học tốt nhất môn học nào?<span style="color:red;"> *</span></label>
+            <textarea id="favSubject" name="favSubject" required placeholder="Trả lời câu hỏi..." maxlength="500"></textarea>
 
-      <label for="subject">Trong các môn học, bạn thích nhất hoặc học tốt nhất môn học nào?</label>
-      <textarea id="subject" required></textarea>
+            <label for="hobbyActivities">Bạn thường hào hứng, say mê với những hoạt động hoặc công việc nào?<span style="color:red;"> *</span></label>
+            <textarea id="hobbyActivities" name="hobbyActivities" required placeholder="Trả lời câu hỏi..." maxlength="1000"></textarea>
 
-      <label for="activities">Bạn thường hào hứng, say mê với những hoạt động hoặc công việc nào?</label>
-      <textarea id="activities" required></textarea>
+            <label for="personalityTraits">Bạn thấy nét tính cách nào của bạn phù hợp với nghề nghiệp bạn hứng thú?<span style="color:red;"> *</span></label>
+            <textarea id="personalityTraits" name="personalityTraits" required placeholder="Trả lời câu hỏi..." maxlength="1000"></textarea>
 
-      <label for="traits">Bạn thấy nét tính cách nào của bạn phù hợp với nghề nghiệp bạn hứng thú?</label>
-      <textarea id="traits" required></textarea>
+            <button type="submit">Gửi</button>
+            <div id="message" role="alert" aria-live="polite"></div>
+        </form>
 
-      <button type="submit">Gửi</button>
+        <button id="adminBtn" aria-label="Xem dữ liệu khảo sát (có mật khẩu)">Xem dữ liệu khảo sát</button>
 
-      <!-- Nút nhà phát triển được đặt sau nút Gửi -->
-      <div class="dev-btn-wrapper">
-        <button id="devButton" type="button">🔒 Dành cho nhà phát triển</button>
-      </div>
-    </form>
+    </main>
 
-    <!-- Vùng chứa bảng kết quả -->
-    <div id="resultsSection">
-      <h2>Dữ liệu đã nhận</h2>
-      <table id="resultsTable">
-        <thead>
-          <tr>
-            <th>Họ tên</th>
-            <th>Lớp</th>
-            <th>Nghề nghiệp & lý do</th>
-            <th>Hành động thể hiện</th>
-            <th>Môn học yêu thích</th>
-            <th>Hoạt động say mê</th>
-            <th>Tính cách phù hợp</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Dữ liệu sẽ hiển thị ở đây -->
-        </tbody>
-      </table>
+    <!-- Admin modal -->
+    <div id="adminModal" role="dialog" aria-modal="true" aria-labelledby="adminTitle" tabindex="-1">
+        <div id="adminContent">
+            <span id="adminClose" role="button" aria-label="Đóng cửa sổ dữ liệu khảo sát" tabindex="0">&times;</span>
+            <h3 id="adminTitle">Dữ liệu khảo sát của tổ 5</h3>
+            <div id="loginSection">
+                <p>Nhập mật khẩu để xem dữ liệu:</p>
+                <input type="password" id="adminPassword" aria-label="Mật khẩu admin" />
+                <button id="loginBtn">Đăng nhập</button>
+                <p id="loginError" style="color: red; font-weight: bold; display:none;"></p>
+            </div>
+            <div id="dataSection" style="display:none;">
+                <p><strong>Tổng số người đã làm khảo sát: <span id="totalCount">0</span></strong></p>
+                <table id="resultTable" aria-label="Bảng kết quả khảo sát">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Họ tên</th>
+                            <th>Lớp</th>
+                            <th>Hứng thú nghề nghiệp</th>
+                            <th>Hành động thể hiện hứng thú</th>
+                            <th>Môn học yêu thích / học tốt</th>
+                            <th>Hoạt động hào hứng</th>
+                            <th>Nét tính cách phù hợp</th>
+                            <th>Thời gian gửi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultBody"></tbody>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <script>
-    const KEY_ACCESS = "To-ba-phat-hanh-tam-4"; // Mã key bảo mật
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBeT3LwAzm9jQV_FzXrf4eIDEy1BjFQ-ww",
+            authDomain: "hdtn-a8219.firebaseapp.com",
+            projectId: "hdtn-a8219",
+            storageBucket: "hdtn-a8219.firebasestorage.app",
+            messagingSenderId: "10448826462",
+            appId: "1:10448826462:web:71a521ac0cedb25cc884cf",
+            measurementId: "G-Q2MJQFXK44"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
 
-    document.getElementById('surveyForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+        const surveyForm = document.getElementById('surveyForm');
+        const messageDiv = document.getElementById('message');
+        const adminBtn = document.getElementById('adminBtn');
+        const adminModal = document.getElementById('adminModal'); 
+        const adminClose = document.getElementById('adminClose');
+        const loginSection = document.getElementById('loginSection');
+        const dataSection = document.getElementById('dataSection');
+        const loginBtn = document.getElementById('loginBtn');
+        const adminPasswordInput = document.getElementById('adminPassword');
+        const loginError = document.getElementById('loginError');
+        const resultBody = document.getElementById('resultBody');
+        const totalCountSpan = document.getElementById('totalCount');
 
-      const name = document.getElementById('name').value;
-      const userClass = document.getElementById('class').value;
-      const interest = document.getElementById('interest').value;
-      const actions = document.getElementById('actions').value;
-      const subject = document.getElementById('subject').value;
-      const activities = document.getElementById('activities').value;
-      const traits = document.getElementById('traits').value;
+        const ADMIN_PASSWORD = "admin123"; 
 
-      const table = document.getElementById('resultsTable').querySelector('tbody');
-      const row = document.createElement('tr');
+        function formatDateTime(date) {
+            return date.toLocaleString('vi-VN', {
+                year: 'numeric', month: 'numeric', day: 'numeric',
+                hour: '2-digit', minute: '2-digit', second: '2-digit'
+            });
+        }
 
-      row.innerHTML = `
-        <td>${name}</td>
-        <td>${userClass}</td>
-        <td>${interest}</td>
-        <td>${actions}</td>
-        <td>${subject}</td>
-        <td>${activities}</td>
-        <td>${traits}</td>
-      `;
-      table.appendChild(row);
+        surveyForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            messageDiv.textContent = "";
+            if (!surveyForm.checkValidity()) {
+                messageDiv.style.color = "red";
+                messageDiv.textContent = "Vui lòng điền đầy đủ các trường bắt buộc.";
+                return;
+            }
 
-      alert("Cảm ơn bạn đã hoàn thành khảo sát!");
-      document.getElementById('surveyForm').reset();
-    });
+            const fullname = surveyForm.fullname.value.trim();
 
-    document.getElementById("devButton").addEventListener("click", function() {
-      const inputKey = prompt("Vui lòng nhập mã truy cập:");
-      if (inputKey === KEY_ACCESS) {
-        document.getElementById("resultsSection").style.display = "block";
-        alert("Truy cập thành công!");
-      } else {
-        alert("Mã truy cập sai!");
-      }
-    });
-  </script>
+            // Kiểm tra xem tên đầy đủ đã tồn tại hay chưa
+            db.ref('surveys').orderByChild('fullname').equalTo(fullname).once('value')
+                .then(snapshot => {
+                    if (snapshot.exists()) {
+                        messageDiv.style.color = "red";
+                        messageDiv.textContent = "Tên đầy đủ này đã được sử dụng. Vui lòng nhập tên khác.";
+                        return;
+                    }
 
+                    const data = {
+                        fullname: fullname,
+                        classSelect: surveyForm.classSelect.value,
+                        interestCareer: surveyForm.interestCareer.value.trim(),
+                        actionsToShowInterest: surveyForm.actionsToShowInterest.value.trim(),
+                        favSubject: surveyForm.favSubject.value.trim(),
+                        hobbyActivities: surveyForm.hobbyActivities.value.trim(),
+                        personalityTraits: surveyForm.personalityTraits.value.trim(),
+                        timestamp: Date.now()
+                    };
+
+                    db.ref('surveys').push(data)
+                        .then(() => {
+                            messageDiv.style.color = "green";
+                            messageDiv.textContent = "Cảm ơn bạn đã hoàn thành khảo sát của tổ 3!";
+                            surveyForm.reset();
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            messageDiv.style.color = "red";
+                            messageDiv.textContent = "Lỗi khi gửi dữ liệu. Vui lòng thử lại.";
+                        });
+                })
+                .catch(error => {
+                    console.error(error);
+                    messageDiv.style.color = "red";
+                    messageDiv.textContent = "Lỗi khi kiểm tra dữ liệu. Vui lòng thử lại.";
+                });
+        });
+
+        adminBtn.addEventListener('click', () => {
+            loginSection.style.display = "block";
+            dataSection.style.display = "none";
+            loginError.style.display = "none";
+            adminPasswordInput.value = "";
+            adminModal.style.display = "flex";
+            adminPasswordInput.focus();
+        });
+
+        adminClose.addEventListener('click', () => {
+            adminModal.style.display = "none";
+        });
+
+        adminModal.addEventListener('click', (e) => {
+            if (e.target === adminModal) {
+                adminModal.style.display = "none";
+            }
+        });
+
+        loginBtn.addEventListener('click', () => {
+            const pass = adminPasswordInput.value;
+            if (pass === ADMIN_PASSWORD) {
+                loginError.style.display = "none";
+                loadSurveyData();
+            } else {
+                loginError.textContent = "Mật khẩu không đúng, vui lòng thử lại.";
+                loginError.style.display = "block";
+                adminPasswordInput.focus();
+            }
+        });
+
+        adminPasswordInput.addEventListener('keyup', (e) => {
+            if (e.key === "Enter") loginBtn.click();
+        });
+
+        function loadSurveyData() {
+            loginSection.style.display = "none";
+            dataSection.style.display = "block";
+            resultBody.innerHTML = "";
+            totalCountSpan.textContent = "0";
+
+            db.ref('surveys').once('value')
+                .then(snapshot => {
+                    const data = snapshot.val();
+                    if (!data) {
+                        resultBody.innerHTML = '<tr><td colspan="9" style="text-align:center;">Chưa có dữ liệu khảo sát nào.</td></tr>';
+                        totalCountSpan.textContent = "0";
+                        return;
+                    }
+
+                    const entries = Object.entries(data);
+                    totalCountSpan.textContent = entries.length;
+
+                    entries.forEach(([key, val], index) => {
+                        const dateStr = val.timestamp ? formatDateTime(new Date(val.timestamp)) : 'N/A';
+                        const escapeHTML = (str) => {
+                            if (!str) return '';
+                            return str.replace(/[&<>"']/g, (m) => {
+                                switch (m) {
+                                    case '&': return '&amp;';
+                                    case '<': return '&lt;';
+                                    case '>': return '&gt;';
+                                    case '"': return '&quot;';
+                                    case '\'': return '&#39;';
+                                    default: return m;
+                                }
+                            });
+                        };
+                        const row = `
+                            <tr>
+                                <td>${index + 1}</td>
+                                <td>${escapeHTML(val.fullname)}</td>
+                                <td>${escapeHTML(val.classSelect)}</td>
+                                <td>${escapeHTML(val.interestCareer)}</td>
+                                <td>${escapeHTML(val.actionsToShowInterest)}</td>
+                                <td>${escapeHTML(val.favSubject)}</td>
+                                <td>${escapeHTML(val.hobbyActivities)}</td>
+                                <td>${escapeHTML(val.personalityTraits)}</td>
+                                <td>${dateStr}</td>
+                            </tr>
+                        `;
+                        resultBody.insertAdjacentHTML('beforeend', row);
+                    });
+                })
+                .catch(error => {
+                    resultBody.innerHTML = `<tr><td colspan ="9" style="color: red; text-align:center;">Lỗi tải dữ liệu: ${error.message}</td></tr>`;
+                    totalCountSpan.textContent = "0";
+                });
+        }
+    </script>
 </body>
 </html>
